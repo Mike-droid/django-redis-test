@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-2xl font-bold my-4">Prueba de Conexión a Redis Cloud</h1>
+
+<div>
+	<p>
+		Intentando guardar la clave: <code>{{ key }}</code> con el valor:
+		<code>"{{ value_to_set }}"</code> (expira en {{ timeout }} segundos)
+	</p>
+
+	{% if set_success %}
+	<p class="text-green-600">✓ Valor guardado en Redis con éxito.</p>
+	{% else %}
+	<p class="text-red-600">✗ Error al guardar en Redis: {{ set_error }}</p>
+	{% endif %}
+</div>
+
+<div class="mt-4">
+	<p>Intentando recuperar la clave: <code>{{ key }}</code></p>
+
+	{% if get_success %} {% if retrieved_value is not None %}
+	<p class="text-green-600">
+		✓ Valor recuperado de Redis: <code>"{{ retrieved_value }}"</code>
+	</p>
+	{% else %}
+	<p class="text-orange-600">
+		✓ Valor recuperado de Redis: Ninguno (La clave puede haber expirado o no se
+		guardó correctamente).
+	</p>
+	{% endif %} {% else %}
+	<p class="text-red-600">✗ Error al recuperar de Redis: {{ get_error }}</p>
+	{% endif %}
+</div>
+{% endblock content %}
