@@ -89,7 +89,7 @@ Asegúrate de tener instalado:
 1.  Con el servidor de desarrollo corriendo, abre tu navegador web.
 2.  Ve a la siguiente URL:
     ```
-    (http://127.0.0.1:8000/redis/)
+    http://127.0.0.1:8000/redis/
     ```
 
 3.  Deberías ver una página que muestra los resultados del intento de guardar y recuperar un valor en tu base de datos Redis en la nube. Si la configuración es correcta, verás mensajes de éxito indicando que el valor fue guardado y luego recuperado.
