@@ -18,6 +18,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     REDIS_URL=(str, 'redis://127.0.0.1:6379/0'),
+    DATABASE_URL=(str, 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')),
 )
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'redis_app',
+    'notes',
 ]
 
 MIDDLEWARE = [
@@ -81,10 +83,7 @@ WSGI_APPLICATION = 'my_django_redis_app.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db(),
 }
 
 CACHES = {
