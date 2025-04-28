@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-2xl font-bold my-4">
+	{% if form.instance.pk %}Editar Nota{% else %}Crear Nueva Nota{% endif %}
+</h1>
+
+<form method="post">
+	{% csrf_token %} {{ form.as_p }}
+	<button
+		type="submit"
+		class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+	>
+		Guardar
+	</button>
+	<a
+		href="{% if form.instance.pk %}{{ form.instance.get_absolute_url }}{% else %}{% url 'notes:note_list' %}{% endif %}"
+		class="ml-4 text-gray-600 hover:underline"
+		>Cancelar</a
+	>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-2xl font-bold my-4">Todas las Notas</h1>
+
+<p class="mb-4">
+	<a href="{% url 'notes:note_create' %}" class="text-blue-500 hover:underline"
+		>Crear Nueva Nota</a
+	>
+</p>
+
+{% if recent_notes %}
+<h2 class="text-xl font-semibold mt-6 mb-2">Notas Visitadas Recientemente</h2>
+<ul class="list-disc ml-5 mb-6">
+	{% for recent_note in recent_notes %}
+	<li>
+		<a
+			href="{{ recent_note.get_absolute_url }}"
+			class="text-blue-500 hover:underline"
+			>{{ recent_note.title }}</a
+		>
+		<span class="text-gray-500 text-sm"
+			>({{ recent_note.updated_at|date:"Y-m-d H:i" }})</span
+		>
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+<h2 class="text-xl font-semibold mt-6 mb-2">Lista Completa</h2>
+{% if notes %}
+<ul>
+	{% for note in notes %}
+	<li class="border-b py-2">
+		<a
+			href="{{ note.get_absolute_url }}"
+			class="text-blue-500 hover:underline font-semibold"
+			>{{ note.title }}</a
+		>
+		<span class="text-gray-500 text-sm"
+			>({{ note.created_at|date:"Y-m-d H:i" }})</span
+		>
+		<div class="mt-1 text-sm">
+			<a
+				href="{% url 'notes:note_update' note.pk %}"
+				class="text-green-600 hover:underline mr-2"
+				>Editar</a
+			>
+			<a
+				href="{% url 'notes:note_delete' note.pk %}"
+				class="text-red-600 hover:underline"
+				>Eliminar</a
+			>
+		</div>
+	</li>
+	{% endfor %}
+</ul>
+{% else %}
+<p>No hay notas creadas aún.</p>
+{% endif %} {% endblock content %}
